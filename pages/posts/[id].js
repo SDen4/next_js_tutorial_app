@@ -6,6 +6,8 @@ import Date from '../../components/date';
 
 import { getAllPostIds, getPostData } from '../../lib/posts';
 
+import utilStyles from '../../styles/utils.module.css';
+
 export async function getStaticProps({ params }) {
   // Add the "await" keyword like this:
   const postData = await getPostData(params.id);
@@ -31,16 +33,15 @@ export default function Post({ postData }) {
         <title>{postData.title}</title>
       </Head>
 
-      {postData.title}
-      <br />
+      <article>
+        <h1 className={utilStyles.headingXl}>{postData.title}</h1>
 
-      {postData.id}
-      <br />
+        <div className={utilStyles.lightText}>
+          <Date dateString={postData.date} />
+        </div>
 
-      <Date dateString={postData.date} />
-      <br />
-
-      <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+        <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+      </article>
     </Layout>
   );
 }
